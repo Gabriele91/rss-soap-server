@@ -1,9 +1,6 @@
-# flask-soap-server
+# rss-soap-server
 
-A simple example of how to use SOAP with Flask.  
-
-With this project you have a base soap server with 
-a javascript client.
+A simple server rss reader with javascript client and SOAP communication.
 
 ## Dependencies
 
@@ -16,9 +13,12 @@ pip install -r requirements.txt
 You may need to install these libraries for a correct installation of all dependencies:
 
 libxsl1-dev  
-libxml2-dev
+libxml2-dev  
+postgresql  
+postgresql-server-dev  
+postgresql-server-dev-all  
 
-**Note**: libraries refer on Ubuntu package name, please search an equivalent for yours OS.
+**Note**: library refer on Ubuntu package name, please search an equivalent for yours OS.
 
 ## How to test
 
@@ -31,6 +31,7 @@ honcho start
 You can see the example page at `http://localhost:5000/` with your browser.
 
 **Note**: internet connection is required to download jquery library.
+**Note**: you must configure a postgresql database. Specification are in `DBSQL.sql` and you must memorize your access credential in `rsspy/config.db`.
 
 ## Authors
 

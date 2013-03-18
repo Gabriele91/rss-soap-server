@@ -1,0 +1,113 @@
+<div class="loginConteiner boxStyle">
+    <div class="title">RSS SOAP SERVER</div>
+        <div class="loginInput">
+            <label for="username" class="fontsInfo">Username</label><br/>
+            <input id="username"
+                   class="inputLabel"
+                   type="text"
+                   name="username"
+                   placeholder="" required>                        
+            </input><br/>
+            <br/>
+            <label for="password" class="fontsInfo">Password</label><br/>
+            <input id="password"
+                   class="inputLabel"
+                   type="password"
+                   name="password"
+                   placeholder="" required>
+                
+            </input>  
+        </div>
+        <div class="loginButtons">              
+            <Button id="executeLogin" class="button">Login</Button>
+            <Button id="executeRegistration" class="button">Registration</Button> 
+        </div>
+</div>
+<script type="text/javascript">
+    $('#password').keydown(function(e){
+        if (e.keyCode == 13) {
+            //alert('Enter was pressed.');
+            RSSEventLogin(  "#username",
+                            "#password",
+                            function () {
+                                loadRssPage();
+                            },
+                            function () {
+                                alert("fail login");
+                            }                             
+            );
+        }
+    });
+    $("#executeLogin").click(function(){
+        RSSEventLogin(  "#username",
+                        "#password",
+                        function () {
+                            loadRssPage();
+                        },
+                        function () {
+                            alert("fail login");
+                        }                             
+        );
+    });
+    $("#executeRegistration").click(function(){
+        $.msg(
+            {
+                autoUnblock : false,
+                //clickUnblock : false,
+                enableBg: false,
+                bgPath : '/static/',
+                content:'<div class=\"loginTitle\" >Registration</div><br/>'+
+                        '<div>'+
+                        '<a class=\"fontsInfo\" >Name <a><br/>' +
+                        '<input class=\"inputLabel\" id=\"regNameInput\"type=\"text\"/><br/><br/>' + 
+                        '<a class=\"fontsInfo\">Surname <a><br/>' +
+                        '<input class=\"inputLabel\" id=\"regSurInput\"type=\"text\"/><br/><br/>' + 
+                        '<a class=\"fontsInfo\">Nikname <a><br/>' +
+                        '<input class=\"inputLabel\" id=\"regNikenameInput\"type=\"text\"/><br/><br/>' + 
+                        '<a class=\"fontsInfo\">Password <a><br/>' +
+                        '<input class=\"inputLabel\" id=\"regPasswordInput\"type=\"password\"/><br/><br/>' +
+                        '<a class=\"fontsInfo\">Email <a><br/>' +
+                        '<input class=\"inputLabel\" id=\"regEmailInput\"type=\"text\"/><br/><br/>'+
+                        '<button class=\"button\" style=\"float:left\" id="sendRss"> send </button>' +
+                        '<button class=\"button\" id="cancelRegistration">Cancel</button>' +
+                        '</div>',
+                afterBlock : function(){
+                    $("#sendRss").click(function(){
+                        RSSEventAddUser($("#regNikenameInput").val(),
+                            $("#regPasswordInput").val(),
+                            $("#regNameInput").val(),
+                            $("#regSurInput").val(),
+                            $("#regEmailInput").val(),
+                            function(){
+                                $.msg( 'unblock' );
+                                $.msg(
+                                    {
+                                        autoUnblock : false,
+                                        enableBg: false,
+                                        bgPath : '/static/',
+                                        content : "Registration successfull"
+                                    }
+                                );
+                            },
+                            function (error){
+                                alert(error);
+                            }
+                        );
+                    });
+                    $( '#cancelRegistration' ).click( function(){
+                     $.msg( 'unblock' );
+                    }); 
+                   /*
+                      self.unblock( 2000 );
+                      // this equals to 
+                      // $.msg( 'replace', 'User deleted.' ).
+                      //   msg( 'unblock', 2000 );
+                      // this equals to $.msg( 'unblock' );
+                      self.unblock();
+  
+                   */ 
+                } 
+            }
+        ); 
+    });
+</script>

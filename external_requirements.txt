@@ -1,2 +1,0 @@
-libxsl1-dev
-libxml2-dev

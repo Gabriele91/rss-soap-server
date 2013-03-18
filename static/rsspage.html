@@ -1,0 +1,614 @@
+
+<style type="text/css" >
+    
+.rsssconteiner{    
+    margin: 50px auto;   /* align for good browsers */ 
+    text-align: center;
+    width: 720px;
+}
+
+.rsssitetitle{
+    font-weight: bold;
+    color: #FFFFFF;
+    padding: 5px;    
+    background-color: #AAA;
+    background-color: rgba(170,170,170,0.5);
+    text-align: center;
+    position: relative;
+    top: 10px;
+    left: 1%;
+    width: 97%;
+    /* only ie6-8 */
+    border-bottom: 1px solid #000000\9;   
+    /* for all webb, no ie6-8  */
+    border-bottom: 1px solid #999999;
+    text-shadow: 2px 2px #000;
+}
+.rsssiteconteiner{        
+    margin: 40px auto;   /* align for good browsers */ 
+    text-align: center;
+    width: 720px;
+}
+.rssbox{
+    width: 220px;
+    margin: 10px;
+    float: left;
+    /* only ie6-8 */
+    background-color: #ffffff\9;
+    /* for all webb, no ie6-8  */
+    border-radius: 5px;
+    background-color: rgba(250,250,250,0.5);
+}
+.rsssitebox{
+    width: 240px;
+    margin: 10px;
+    float: left;
+    /* only ie6-8 */
+    background-color: #ffffff\9;
+    /* for all webb, no ie6-8  */
+    border-radius: 5px;
+    background-color: rgba(250,250,250,0.5);
+}
+.rsstitle{
+    margin-top: 5px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    margin-right: 12px;
+    word-break:break-all;
+    font-family:"Courier New", Times, serif;
+    /* for all webb, no ie6-8  */
+    color: #999999;    
+    /* only ie6-8 */
+    color: #000000\9; 
+}
+.rsstitle a{
+    text-decoration:none;
+    color: inherit;
+}
+.rsstitle a:hover{
+    text-decoration: underline;
+}
+
+.rssborder{
+    margin: 12px;
+    /* only ie6-8 */
+    border-bottom: 1px solid #000000\9;   
+    /* for all webb, no ie6-8  */
+    border-bottom: 1px solid #999999;  
+}
+.rssbordermsg{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 25px;
+    /* only ie6-8 */
+    border-bottom: 1px solid #000000\9;     
+    /* for all webb, no ie6-8  */
+    border-bottom: 1px solid #999999;
+}
+.rssmessage{
+    color: #111111;
+    margin: 12px;
+    text-align: center;
+    word-break:hyphenate;
+}
+.rssmessage img{    
+    display: none;
+}
+.rssSitedelete{
+    position: relative;
+    top:5px;
+    left:5px; 
+    display: inline; 
+    width:18px;
+    height:18px;
+}
+.rssSitedelete img{
+    display: inline; 
+    width:18px;
+    height:18px;
+    cursor: pointer;
+}
+.rssdelete{
+    position: absolute;
+    top:5px;
+    left:10px; 
+    width:18px;
+    height:18px;
+}
+.rssdelete img{    
+    width:18px;
+    height:18px;
+    cursor: pointer;
+}
+.rssdate{    
+    margin: 8px;
+    height:18px;
+    text-align: right; 
+    float: right;
+    font-family:"Courier New", Times, serif;
+    font-size: 12px;
+    /* only ie6-8 */
+    color: #000000\9;   
+    /* for all webb, no ie6-8  */
+    color: #555555;    
+}
+.menuconteiner {    
+    width: 500px;
+    height: 80px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -6px;
+}
+.menudistance{  
+    width: 100%;
+    height: 20px;
+}
+.menubutton {
+    /*setting*/
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+} 
+.menubuttonImg {
+    /*setting*/
+    width: 50px;
+    height: 50px;
+    border: hidden;
+    cursor: pointer;
+}
+
+
+</style>
+<div class="menuconteiner">
+    <div class="menudistance"></div>    
+    <div class="menubutton">
+        <img 
+        id="addrsslink"
+        class="menubuttonImg" 
+        src="/static/imgs/rss.png">
+        </img>
+    </div>
+    <div class="menubutton">
+        <img 
+        id="addrssicon"
+        class="menubuttonImg" 
+        src="/static/imgs/speach_bubble.png">
+        </img>
+    </div>
+    <div class="menubutton">
+        <img 
+        id="getrsslink"
+        class="menubuttonImg"  
+        src="/static/imgs/stumbleupon.png">
+        </img>
+    </div>    
+    <div class="menubutton">
+        <img 
+        id="edituser"
+        class="menubuttonImg" 
+        src="/static/imgs/user.png">
+        </img>
+    </div>
+    <div class="menubutton">
+        <img 
+        id="logouticon"
+        class="menubuttonImg" 
+        src="/static/imgs/exit.png">
+        </img>
+    </div>
+</div> 
+
+<div class="rsssconteiner">
+</div>
+
+<div id="titleRssSite" class="boxStyle rsssitetitle" style="display:none">RSS FOLLOWED</div> 
+<div class="rsssiteconteiner">  
+</div>  
+
+<script type="text/javascript">
+//
+/* set container rssSite */                              
+$(".rsssiteconteiner").masonry({
+        itemSelector: ".rsssitebox",
+        isAnimated: true,
+        isFitWidth: true
+});
+
+function showDeleteDialogLinkSite(obj){
+    //save id message
+    idValueRssSite=$(obj).attr('id');
+    //
+    $.msg({ autoUnblock : false,
+            enableBg: false,
+            bgPath : '/static/',
+            content: '<p>Do you want delete this feed?</p>' +
+                     '<div>'+
+                     '<button class=\"button\" id="deleteRssYes">Yes</button>'+
+                     '<button class=\"button\" id="deleteRssNo">No</button>'+
+                     '</div>',
+            afterBlock : function(){                
+                    $('#deleteRssYes').click(function(){ 
+                        RSSEventDeleteRssSite(
+                                idValueRssSite,
+                                function(){
+                                    $.msg( 'unblock' );
+                                    updateRssFromUrls(false);
+                                },
+                                function(){                                
+                                    $.msg( 'unblock' );
+                                    $.msg({ enableBg: false,
+                                            content:'<p>Error: fail delete rss</p>'
+                                            });
+                                }
+                            );
+                    });                
+                    $('#deleteRssNo').click(function(){ 
+                        $.msg( 'unblock' );
+                    });
+            }
+        });
+}
+
+function reloadRssSiteConteiner(var_animation){
+    $(".rsssiteconteiner").masonry('option',{isAnimated:var_animation});
+    $(".rsssiteconteiner").masonry('reload');
+    $(".rsssiteconteiner").masonry('option',{isAnimated:true});
+}
+function updateRssFromUrls(enableAnimation) {
+    function isEmptyDictionary(ob){
+        for(var i in ob){ return false;}
+       return true;
+     }
+    function createRssFromSite(vars) {
+    	if(typeof(vars) === "undefined"){ return ""; }
+        vid=vars['string'][0]['#text'];
+        vtitle=vars['string'][1]['#text'];
+        vlink=vars['string'][2]['#text'];
+        vmessage=vars['string'][3]['#text'];
+        vdate=vars['string'][4]['#text'];
+            return  '<div class="rsssitebox" id="_msg@'+vid+'">'+
+                    '<div class="rssSitedelete" '+
+                          'id="'+vid+'" '+
+                          'onclick=\"javascript:showDeleteDialogLinkSite(this)\">'+
+                          '<img src="/static/imgs/cross.png"></img>'+
+                    '</div>'+
+                    '<div class="rsstitle"><a href="'+vlink+'" target="_blank">'+vtitle+'</a></div>'+
+                    '<div class="rssborder"></div>'+
+                    '<div class="rssmessage">'+vmessage+'</div>'+
+                    '<div class="rssdate">'+vdate+'</div>'+
+                '</div>'; 
+    }
+    RSSEventReadRssFromSite(function(values){
+                                jsonToHtml='';
+                                if (  !isEmptyDictionary(values)  ) {
+                                    arrays=values['stringArray'];
+                                    if (arrays instanceof Array) {
+                                        for (var key in arrays) {                    
+                                            jsonToHtml+=createRssFromSite(arrays[key]);
+                                        }               
+                                    }else{                 
+                                       jsonToHtml+=createRssFromSite(arrays);
+                                    }   
+                                }
+                                if(jsonToHtml!=''){
+                                    $("#titleRssSite").show()
+                                }
+                                else{
+                                    $("#titleRssSite").hide()
+                                }                                                              
+                                $(".rsssiteconteiner").html(jsonToHtml);
+                                reloadRssSiteConteiner(enableAnimation);
+                            },
+                            function(){
+                          
+                            });       
+}
+/* set rss from site */
+updateRssFromUrls(true);
+/* dinamic update */
+window.setInterval(function(){
+                        updateRssFromUrls(false);
+                        },60000);
+;
+/* set container rss */                              
+$(".rsssconteiner").masonry({
+        itemSelector: ".rssbox",
+        isAnimated: true,
+        isFitWidth: true
+});
+function reloadRssConteiner(var_animation){
+    $(".rsssconteiner").masonry('option',{isAnimated:var_animation});
+    $(".rsssconteiner").masonry('reload');
+    $(".rsssconteiner").masonry('option',{isAnimated:true});
+}
+
+function updateRssUser(var_animation) {
+
+function createRss(value) {
+    if(typeof(value) === "undefined"){ return ""; }
+    vid=value['string'][0]['#text'];
+    vtitle=value['string'][1]['#text'];
+    vmessage=value['string'][2]['#text'];
+    vdate=value['string'][3]['#text'];
+    return  '<div class="rssbox" id="msg@'+vid+'">'+
+                '<div class="rsstitle">'+vtitle+'</div>'+
+                '<div class="rssdelete" '+
+                      'id="'+vid+'" '+
+                      'onclick=\"javascript:showDeleteDialog(this)\">'+
+                      '<img src="/static/imgs/cross.png"></img>'+
+                '</div>'+
+                '<div class="rssborder"></div>'+
+                '<div class="rssmessage">'+vmessage+'</div>'+
+                '<div class="rssdate">'+vdate+'</div>'+
+            '</div>';   
+}
+
+RSSEventReadRss(
+        function(values){
+	    function isEmptyDictionary(ob){
+		for(var i in ob){ return false;}
+	       return true;
+	    }
+            jsonToHtml='';
+            if (  !isEmptyDictionary(values)  ) {
+		    arrays=values['stringArray'];
+		    if (arrays instanceof Array) {
+		        for (var key in arrays) {                    
+		            jsonToHtml+=createRss(arrays[key]);
+		        }               
+		    }else{                 
+		       jsonToHtml+=createRss(arrays);
+		    }
+	    }
+	    $(".rsssconteiner").html(jsonToHtml);
+	    reloadRssConteiner(var_animation);
+        },
+        function(){
+        
+        });
+}
+
+
+/* on load read rss */
+updateRssUser(true) ;     
+/* set time interval update */
+window.setInterval(function(){
+                        updateRssUser(false);
+                    },60000);
+/* event delete a rss */
+function showDeleteDialog(obj){
+    //save id message
+    idValueRss=$(obj).attr('id');
+    //
+    $.msg({ autoUnblock : false,
+            enableBg: false,
+            bgPath : '/static/',
+            content: '<p>Do you want delete this rss?</p>' +
+                     '<div>'+
+                     '<button class=\"button\" id="deleteRssYes">Yes</button>'+
+                     '<button class=\"button\" id="deleteRssNo">No</button>'+
+                     '</div>',
+            afterBlock : function(){                
+                    $('#deleteRssYes').click(function(){ 
+                        RSSEventDeleteRss(
+                                idValueRss,
+                                function(){
+                                    $.msg( 'unblock' );
+                                    updateRssUser(false);
+                                },
+                                function(){                                
+                                    $.msg( 'unblock' );
+                                    $.msg({ enableBg: false,
+                                            content:'<p>Error: fail delete rss</p>'
+                                            });
+                                }
+                            );
+                    });                
+                    $('#deleteRssNo').click(function(){ 
+                        $.msg( 'unblock' );
+                    });
+            }
+        });
+}
+
+/* events*/
+$(".menubuttonImg").mouseenter(function(){
+    $(this).animate({
+        left: "10px",
+        height: "70px",
+        width:  "70px"
+      }, 500, 
+      function() {
+        // Animation complete.
+      });
+});
+$(".menubuttonImg").mouseleave(function(){    
+    $(this).animate({
+        left: "0px",
+        height: "50px",
+        width:  "50px"
+      }, 500, function() {
+        // Animation complete.
+      });
+});
+$("#logouticon").click(function(){
+    RSSEventLogout(function(){
+        location.reload();
+    },
+    function(){
+        alert("Invalid logout [event logout]");
+    })
+});
+
+$("#addrsslink").click(function(){
+    $.msg({ autoUnblock : false,
+            //clickUnblock : false,
+            enableBg: false,
+            bgPath : '/static/',
+            content: '<p class=\"title\">Add Link</p>' +
+                     '<div>'+
+                     '<input class=\"inputLabel\" id=\"urlInput\"type=\"text\" placeholder=\"Insert an Rss url\" /><br/>' +
+                     '<button class=\"button\" id="sendRss">Send</button>' +
+                     '<button class=\"button\" id="cancelAddRss">Cancel</button>' + 
+                     '</div>',
+            afterBlock : function(){
+                    var self = this;
+                    $('#sendRss').click(function (){
+                        RSSEventRssSiteAdd($('#urlInput').val(),
+                                           function(){
+                                              $.msg( 'unblock' );
+                                              updateRssFromUrls(true);
+                                            },
+                                           function(res){
+                                            var text = res==-1 ?
+                                                        "<p>Error: not valid url!</p>" :
+                                                        "<p>Error: insert fail!</p>";
+                                            $.msg( 'unblock' );
+                                            $.msg({ enableBg: false,
+                                                    content: text
+                                                    });
+                                            });
+                    });
+                    $( '#cancelAddRss' ).click( function(){
+                        $.msg( 'unblock' );
+                    }); 
+            }
+        });
+});
+
+$("#addrssicon").click(function(){
+    $.msg({ autoUnblock : false,
+            //clickUnblock : false,
+            enableBg: false,
+            bgPath : '/static/',
+            content: '<p class=\"title\">Add Rss</p>' +
+                     '<div>'+
+                     '<input class=\"inputLabel\" id=\"titleInput\"type=\"text\" placeholder=\"Insert a title\" /><br/><br/>' + 
+                     '<textarea class=\"textAreaDiv\" id=\"messageInput\" placeholder=\"Insert a custom text\"></textarea><br/><br/>' +
+                     '<button class=\"button\" id="sendRss">Send</button>' +
+                     '<button class=\"button\" id="cancelAddRss">Cancel</button>' + 
+                     '</div>',
+            afterBlock : function(){
+                    var self = this;
+                    $('#sendRss').click(function (){
+                        RSSEventAddRss($('#titleInput').val(),
+                                       $('#messageInput').val(),
+                                       function(){
+                                            $.msg( 'unblock' );
+                                            updateRssUser();
+                                       },
+                                       function (){
+                                            $.msg( 'unblock' );
+                                            $.msg({ enableBg: false,
+                                                    content:'<p>Error: fail send rss!</p>'
+                                                    });
+                                       });
+                        });
+                    $( '#cancelAddRss' ).click( function(){
+                        $.msg( 'unblock' );
+                    }); 
+                }
+            });
+    /*
+    RSSEventAddRss(
+    title,
+    message,
+    function(){
+        location.reload();
+    },
+    function(){
+        alert("Invalid logout [event logout]");
+    })
+    */
+});
+
+$("#getrsslink").click(function(){    
+    RSSEventGetId(function(vid){
+                    $.msg({ autoUnblock : false,
+                            enableBg: false,
+                            bgPath : '/static/',
+                            content: '<p class=\"title\">Copy URL</p>'+
+                                     '<input class=\"inputLabel\" type="text" '+
+                                     'value="'+window.location.protocol+"//"+window.location.host+'/rss?id='+vid+'"/></br></br>'+
+                                     '<button class=\"button\" id="urlShowClose">Close</button>',                    
+                            afterBlock : function(){
+                                $('#urlShowClose').click(function (){ $.msg( 'unblock' ); });
+                            }
+                           });
+                    },
+                    function(){
+                        $.msg({ enableBg: false,
+                                content:'<p>Error: fail get url!</p>'
+                              });
+                    });
+
+});
+
+$("#edituser").click(function(){
+    $.msg({ autoUnblock : false,
+            //clickUnblock : false,
+            enableBg: false,
+            bgPath : '/static/',
+            content: '<p class=\"title\">User panel</p>' +
+                     '<div>'+
+                     '<label for=\"nickname\" class=\"fontsInfo\">Nickname</label><br>'+
+                     '<input class=\"inputLabel\" id=\"nickname\"type=\"text\" placeholder=\"nickname\"/><br/>'+
+                     '<label for=\"name\" class=\"fontsInfo\">Name</label><br>'+
+                     '<input class=\"inputLabel\" id=\"name\"type=\"text\" placeholder=\"Name\"/><br/>'+
+                     '<label for=\"surname\" class=\"fontsInfo\">Surname</label><br>'+
+                     '<input class=\"inputLabel\" id=\"surname\"type=\"text\" placeholder=\"Surname\"/><br/>'+
+                     '<label for=\"email\" class=\"fontsInfo\">Email</label><br>'+
+                     '<input class=\"inputLabel\" id=\"email\"type=\"text\" placeholder=\"Email\"/><br/>'+
+                     '<label for=\"passwd\" class=\"fontsInfo\">Password</label><br>'+
+                     '<input class=\"inputLabel\" id=\"passwd\"type=\"password\" placeholder=\"Insert a new password\"/><br/>'+
+                     '<button class=\"button\" id="saveEditUser">Save</button>' +
+                     '<button class=\"button\" id="cancelEditUser">Cancel</button>' +
+                     '<p class=\"fontsDeleteInfo\">If you want to delete your account<br>please contact the administrators at:<br><br> delete[at]rssservice[dot]future </p>'+
+                     '</div>',
+            afterBlock : function(){
+                    RSSEventGetMemberInfo(function(listAttrs){
+                            $('#nickname').attr("placeholder",listAttrs[0]["#text"]);
+                            $('#name').attr("placeholder",listAttrs[1]["#text"]);
+                            $('#surname').attr("placeholder",listAttrs[2]["#text"]);
+                            $('#email').attr("placeholder",listAttrs[3]["#text"]);
+                            $('#nickname').val(listAttrs[0]["#text"]);
+                            $('#name').val(listAttrs[1]["#text"]);
+                            $('#surname').val(listAttrs[2]["#text"]);
+                            $('#email').val(listAttrs[3]["#text"]);
+                        },function(){
+                            alert("Error : No information about your user!\nPlease contact the administrator.")
+                        });
+                    var self = this;
+                    $('#saveEditUser').click(function (){
+                            RSSEventEditMemberInfo(
+                                $("#nickname").val(),
+                                $("#name").val(),
+                                $("#surname").val(),
+                                $("#email").val(),
+                                $("#passwd").val(),
+                                function(){
+                                    $.msg( 'unblock' );
+                                    $.msg(
+                                        {
+                                            autoUnblock : false,
+                                            enableBg: false,
+                                            bgPath : '/static/',
+                                            content : "Update successfull"
+                                        }
+                                    );
+                                },
+                                function(error){
+                                    alert("Errors: "+error);
+                                }  
+                    );
+                });
+                $( '#cancelEditUser' ).click( function(){
+                     $.msg( 'unblock' );
+                }); 
+            }
+        });
+});
+
+</script>

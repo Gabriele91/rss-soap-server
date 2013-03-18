@@ -3,7 +3,7 @@
     <head>
     <title>Rss Soap Server</title>  
     </head>            
-        <!--[if lte IE 8]>
+        <!--[if lte IE 7]>
         <script type="text/javascript">
        		window.location.replace(window.location.protocol+"//"+window.location.host+"{{url_for('static', filename='ie6-8Error.html')}}");
         </script>

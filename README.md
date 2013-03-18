@@ -28,7 +28,8 @@ Just type the command below in the main directory:
 honcho start
 ```
 
-You can see the example page at `http://localhost:5000/` with your browser.
+You can see the example page at `http://localhost:5000/` with your browser.  
+WSDL generated on `http://localhost:5000/soap?wsdl`.
 
 **Note**: internet connection is required to download jquery library.
 **Note**: you must configure a postgresql database. Specification are in `DBSQL.sql` and you must memorize your access credential in `rsspy/config.db`.
